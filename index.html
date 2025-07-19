@@ -1,2 +1,239 @@
-this is a test of two.txt file
-hiii
+// App.jsx
+import React, { useState, useEffect } from 'react';
+
+const navItems = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const projects = [
+  {
+    title: 'Heart Disease Prediction',
+    description:
+      'AI-powered diagnostic tool combining machine learning and Google Gemini API to classify heart disease risk with high accuracy.',
+    img: 'https://images.unsplash.com/photo-1581092334315-c6c6321cd33d?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Automatic Door Locking System',
+    description:
+      'Arduino-based secure automated door locking/unlocking system using sensors for enhanced safety and convenience.',
+    img: 'https://images.unsplash.com/photo-1518773553398-650c184e3e3a?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Engine Shut-Off Sensor',
+    description:
+      'Safety-focused embedded system that monitors engine parameters and shuts off engine to prevent damage in risky conditions.',
+    img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
+  },
+];
+
+export default function App() {
+  const [activeNav, setActiveNav] = useState('home');
+
+  // Smooth scroll and active link tracking
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      let current = 'home';
+      navItems.forEach(({ id }) => {
+        const section = document.getElementById(id);
+        if (section && section.offsetTop <= scrollPos) {
+          current = id;
+        }
+      });
+      setActiveNav(current);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      setActiveNav(id);
+    }
+  };
+
+  return (
+    <>
+      <nav style={styles.nav}>
+        {navItems.map(({ id, label }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo(id);
+            }}
+            style={{
+              ...styles.navLink,
+              borderBottom: activeNav === id ? '2px solid #38bdf8' : 'none',
+              color: activeNav === id ? '#38bdf8' : '#cbd5e1',
+            }}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+
+      <header id="home" style={styles.header}>
+        <h1 style={styles.title}>Varshan Yuvaraj</h1>
+        <p style={styles.subtitle}>Software Developer</p>
+        <p style={styles.openToWork}>Open to Work</p>
+      </header>
+
+      <section id="about" style={styles.section}>
+        <h2 style={styles.sectionTitle}>About Me</h2>
+        <p style={styles.sectionText}>
+          Passionate software developer skilled in JavaScript, Java, HTML, CSS, and modern frameworks.
+          Experienced in building AI-powered applications, embedded systems, and automation tools.
+          Dedicated to writing clean, efficient code and delivering user-friendly software solutions.
+        </p>
+      </section>
+
+      <section id="projects" style={styles.section}>
+        <h2 style={styles.sectionTitle}>Projects</h2>
+        <div style={styles.projectsGrid}>
+          {projects.map(({ title, description, img }) => (
+            <div key={title} style={styles.projectCard} tabIndex={0}>
+              <img src={img} alt={title} style={styles.projectImage} />
+              <h3 style={styles.projectTitle}>{title}</h3>
+              <p style={styles.projectDesc}>{description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" style={styles.section}>
+        <h2 style={styles.sectionTitle}>Contact Me</h2>
+        <p style={styles.sectionText}>Feel free to reach out for collaborations or job opportunities.</p>
+        <p style={styles.sectionText}>
+          Email: <a href="mailto:varshanyuvaraj08@gmail.com" style={styles.link}>varshanyuvaraj08@gmail.com</a>
+        </p>
+        <p style={styles.sectionText}>
+          LinkedIn:{' '}
+          <a
+            href="https://www.linkedin.com/in/varshanyuvaraj"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.link}
+          >
+            linkedin.com/in/varshanyuvaraj
+          </a>
+        </p>
+        <a href="mailto:varshanyuvaraj08@gmail.com" style={styles.contactButton}>
+          Send Email
+        </a>
+      </section>
+    </>
+  );
+}
+
+const styles = {
+  nav: {
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: '#1e293b',
+    padding: '15px 0',
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+  },
+  navLink: {
+    margin: '0 20px',
+    fontWeight: '600',
+    fontSize: '1.1rem',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    paddingBottom: '5px',
+    transition: 'color 0.3s, border-bottom 0.3s',
+  },
+  header: {
+    textAlign: 'center',
+    padding: '80px 20px 60px',
+    backgroundColor: '#0f172a',
+  },
+  title: {
+    fontSize: '3rem',
+    color: '#38bdf8',
+    marginBottom: '10px',
+  },
+  subtitle: {
+    fontSize: '1.3rem',
+    color: '#94a3b8',
+  },
+  openToWork: {
+    marginTop: '10px',
+    fontStyle: 'italic',
+    color: '#60a5fa',
+  },
+  section: {
+    padding: '60px 20px',
+    maxWidth: '900px',
+    margin: '0 auto',
+  },
+  sectionTitle: {
+    fontSize: '2rem',
+    color: '#38bdf8',
+    marginBottom: '30px',
+    textAlign: 'center',
+    borderBottom: '3px solid #475569',
+    paddingBottom: '8px',
+    width: 'max-content',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  sectionText: {
+    fontSize: '1.1rem',
+    color: '#cbd5e1',
+    textAlign: 'center',
+    maxWidth: '650px',
+    margin: '0 auto',
+  },
+  projectsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+    gap: '25px',
+  },
+  projectCard: {
+    backgroundColor: '#1e293b',
+    padding: '20px',
+    borderRadius: '10px',
+    boxShadow: '0 0 15px #2563eb66',
+    transition: 'transform 0.3s ease',
+    cursor: 'pointer',
+  },
+  projectImage: {
+    width: '100%',
+    height: '160px',
+    objectFit: 'cover',
+    borderRadius: '6px',
+    marginBottom: '15px',
+  },
+  projectTitle: {
+    fontSize: '1.3rem',
+    color: '#38bdf8',
+    marginBottom: '10px',
+  },
+  projectDesc: {
+    fontSize: '1rem',
+    color: '#cbd5e1',
+  },
+  link: {
+    color: '#38bdf8',
+  },
+  contactButton: {
+    display: 'inline-block',
+    backgroundColor: '#2563eb',
+    color: 'white',
+    padding: '12px 24px',
+    borderRadius: '6px',
+    marginTop: '15px',
+    fontWeight: '600',
+    textDecoration: 'none',
+    cursor: 'pointer',
+  },
+};
