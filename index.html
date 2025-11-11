@@ -1,239 +1,253 @@
-// App.jsx
-import React, { useState, useEffect } from 'react';
-
-const navItems = [
-  { id: 'home', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
-];
-
-const projects = [
-  {
-    title: 'Heart Disease Prediction',
-    description:
-      'AI-powered diagnostic tool combining machine learning and Google Gemini API to classify heart disease risk with high accuracy.',
-    img: 'https://images.unsplash.com/photo-1581092334315-c6c6321cd33d?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Automatic Door Locking System',
-    description:
-      'Arduino-based secure automated door locking/unlocking system using sensors for enhanced safety and convenience.',
-    img: 'https://images.unsplash.com/photo-1518773553398-650c184e3e3a?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Engine Shut-Off Sensor',
-    description:
-      'Safety-focused embedded system that monitors engine parameters and shuts off engine to prevent damage in risky conditions.',
-    img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
-  },
-];
-
-export default function App() {
-  const [activeNav, setActiveNav] = useState('home');
-
-  // Smooth scroll and active link tracking
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPos = window.scrollY + window.innerHeight / 3;
-      let current = 'home';
-      navItems.forEach(({ id }) => {
-        const section = document.getElementById(id);
-        if (section && section.offsetTop <= scrollPos) {
-          current = id;
-        }
-      });
-      setActiveNav(current);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-      setActiveNav(id);
-    }
-  };
-
-  return (
-    <>
-      <nav style={styles.nav}>
-        {navItems.map(({ id, label }) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo(id);
-            }}
-            style={{
-              ...styles.navLink,
-              borderBottom: activeNav === id ? '2px solid #38bdf8' : 'none',
-              color: activeNav === id ? '#38bdf8' : '#cbd5e1',
-            }}
-          >
-            {label}
-          </a>
-        ))}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Varshan | Portfolio</title>
+  <meta name="description" content="Front-End & Java Developer. I build clean, user-friendly, responsive web applications." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>">
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="brand">Varshan</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact">Contact</a>
       </nav>
+    </div>
+    <nav id="mobileNav" class="mobile-nav" aria-hidden="true">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-      <header id="home" style={styles.header}>
-        <h1 style={styles.title}>Varshan Yuvaraj</h1>
-        <p style={styles.subtitle}>Software Developer</p>
-        <p style={styles.openToWork}>Open to Work</p>
-      </header>
-
-      <section id="about" style={styles.section}>
-        <h2 style={styles.sectionTitle}>About Me</h2>
-        <p style={styles.sectionText}>
-          Passionate software developer skilled in JavaScript, Java, HTML, CSS, and modern frameworks.
-          Experienced in building AI-powered applications, embedded systems, and automation tools.
-          Dedicated to writing clean, efficient code and delivering user-friendly software solutions.
+  <main class="container">
+    <section id="home" class="section hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+        <h1 class="reveal fade-up">
+          Hi, I’m <span class="accent">Varshan</span> 👋
+        </h1>
+        <p class="subtitle reveal fade-up" style="transition-delay: 80ms;">
+          Front-End &amp; Java Developer
         </p>
-      </section>
-
-      <section id="projects" style={styles.section}>
-        <h2 style={styles.sectionTitle}>Projects</h2>
-        <div style={styles.projectsGrid}>
-          {projects.map(({ title, description, img }) => (
-            <div key={title} style={styles.projectCard} tabIndex={0}>
-              <img src={img} alt={title} style={styles.projectImage} />
-              <h3 style={styles.projectTitle}>{title}</h3>
-              <p style={styles.projectDesc}>{description}</p>
-            </div>
-          ))}
+        <p class="desc reveal fade-up" style="transition-delay: 160ms;">
+          I build clean, user-friendly, and responsive web applications. Passionate about UI/UX, modern web design, and problem solving.
+        </p>
+        <div class="cta reveal fade-up" style="transition-delay: 240ms;">
+          <a href="#projects" class="btn btn-primary hover-bounce">Explore My Work</a>
+          <a href="#contact" class="btn btn-outline hover-bounce">Contact Me</a>
         </div>
-      </section>
+        </div>
+        <div class="hero-media reveal fade-up" style="transition-delay: 200ms;">
+          <img class="media media-float" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop" alt="Code and UI mockups on desk" loading="lazy" data-parallax-speed="0.15">
+        </div>
+      </div>
+    </section>
 
-      <section id="contact" style={styles.section}>
-        <h2 style={styles.sectionTitle}>Contact Me</h2>
-        <p style={styles.sectionText}>Feel free to reach out for collaborations or job opportunities.</p>
-        <p style={styles.sectionText}>
-          Email: <a href="mailto:varshanyuvaraj08@gmail.com" style={styles.link}>varshanyuvaraj08@gmail.com</a>
-        </p>
-        <p style={styles.sectionText}>
-          LinkedIn:{' '}
-          <a
-            href="https://www.linkedin.com/in/varshanyuvaraj"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={styles.link}
-          >
-            linkedin.com/in/varshanyuvaraj
-          </a>
-        </p>
-        <a href="mailto:varshanyuvaraj08@gmail.com" style={styles.contactButton}>
-          Send Email
+    <section id="about" class="section">
+      <div class="section-row">
+        <div class="section-col">
+          <h2 class="section-title reveal">About Me</h2>
+          <p class="section-text reveal">
+            I’m <strong>Varshan Y</strong>, a B.E Computer Science and Engineering graduate and a Front-End Developer who loves turning ideas into real, interactive experiences. I work with Java, HTML, CSS, JavaScript and modern tools to build clean and efficient applications.
+          </p>
+          <p class="section-text reveal">
+            I enjoy building projects that solve real-world problems — from ML-powered prediction tools to hardware-integrated systems. Currently looking for opportunities as a <strong>Software Developer</strong> or <strong>Front-End Developer</strong>.
+          </p>
+        </div>
+        <div class="section-col section-media reveal fade-up">
+          <img class="media media-round media-float" src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=1200&auto=format&fit=crop" alt="Developer portrait concept" loading="lazy" data-parallax-speed="0.1">
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="section-row">
+        <div class="section-col">
+          <h2 class="section-title reveal">Skills</h2>
+          <h3 class="skills-subtitle reveal">Technical Skills</h3>
+          <ul class="grid skills-grid stagger">
+            <li class="card reveal">Java</li>
+            <li class="card reveal">JavaScript</li>
+            <li class="card reveal">HTML</li>
+            <li class="card reveal">CSS</li>
+            <li class="card reveal">Python (Basics)</li>
+            <li class="card reveal">Machine Learning</li>
+            <li class="card reveal">MySQL</li>
+            <li class="card reveal">Git / GitHub</li>
+            <li class="card reveal">Arduino</li>
+          </ul>
+          <h3 class="skills-subtitle reveal" style="margin-top:20px;">Design & Creative</h3>
+          <ul class="grid skills-grid stagger">
+            <li class="card reveal">Adobe Illustrator</li>
+            <li class="card reveal">Adobe Photoshop</li>
+            <li class="card reveal">Figma</li>
+            <li class="card reveal">Basic Video Editing</li>
+          </ul>
+        </div>
+        <div class="section-col section-media reveal fade-up">
+          <img class="media media-float" src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="Code on screen" loading="lazy" data-parallax-speed="0.12">
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <h2 class="section-title reveal">Projects</h2>
+      <div class="grid projects-grid">
+        <a class="card project reveal slide-up tilt" href="https://heartdisease-phf3.onrender.com/home" target="_blank" rel="noopener noreferrer">
+          <img class="project-image" src="https://images.unsplash.com/photo-1576765608610-cb66a8dc2f9b?q=80&w=1200&auto=format&fit=crop" alt="ECG waveform and heart analytics dashboard" loading="lazy">
+          <h3 class="project-title">Heart Disease Prediction</h3>
+          <p class="project-desc">ML system that predicts heart disease risk. Built using Python, Streamlit, Google Gemini API. Clean UI.</p>
+          <span class="project-link">Visit →</span>
         </a>
-      </section>
-    </>
-  );
-}
+        <div class="card project reveal slide-up tilt">
+          <img class="project-image" src="https://images.unsplash.com/photo-1587750059632-6d1b6bb3fdd2?q=80&w=1200&auto=format&fit=crop" alt="Smart keypad door lock and handle close-up" loading="lazy">
+          <h3 class="project-title">Automatic Door Locking System</h3>
+          <p class="project-desc">Arduino-based sensor system for auto door security. Locks/unlocks using presence detection.</p>
+        </div>
+        <div class="card project reveal slide-up tilt">
+          <img class="project-image" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop" alt="Automotive engine bay with diagnostic sensor" loading="lazy">
+          <h3 class="project-title">Engine Shut-Off Sensor</h3>
+          <p class="project-desc">Safety system that shuts off engine under unsafe conditions. Prevents engine damage.</p>
+        </div>
+      </div>
+    </section>
 
-const styles = {
-  nav: {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: '#1e293b',
-    padding: '15px 0',
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-  },
-  navLink: {
-    margin: '0 20px',
-    fontWeight: '600',
-    fontSize: '1.1rem',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    paddingBottom: '5px',
-    transition: 'color 0.3s, border-bottom 0.3s',
-  },
-  header: {
-    textAlign: 'center',
-    padding: '80px 20px 60px',
-    backgroundColor: '#0f172a',
-  },
-  title: {
-    fontSize: '3rem',
-    color: '#38bdf8',
-    marginBottom: '10px',
-  },
-  subtitle: {
-    fontSize: '1.3rem',
-    color: '#94a3b8',
-  },
-  openToWork: {
-    marginTop: '10px',
-    fontStyle: 'italic',
-    color: '#60a5fa',
-  },
-  section: {
-    padding: '60px 20px',
-    maxWidth: '900px',
-    margin: '0 auto',
-  },
-  sectionTitle: {
-    fontSize: '2rem',
-    color: '#38bdf8',
-    marginBottom: '30px',
-    textAlign: 'center',
-    borderBottom: '3px solid #475569',
-    paddingBottom: '8px',
-    width: 'max-content',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  sectionText: {
-    fontSize: '1.1rem',
-    color: '#cbd5e1',
-    textAlign: 'center',
-    maxWidth: '650px',
-    margin: '0 auto',
-  },
-  projectsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
-    gap: '25px',
-  },
-  projectCard: {
-    backgroundColor: '#1e293b',
-    padding: '20px',
-    borderRadius: '10px',
-    boxShadow: '0 0 15px #2563eb66',
-    transition: 'transform 0.3s ease',
-    cursor: 'pointer',
-  },
-  projectImage: {
-    width: '100%',
-    height: '160px',
-    objectFit: 'cover',
-    borderRadius: '6px',
-    marginBottom: '15px',
-  },
-  projectTitle: {
-    fontSize: '1.3rem',
-    color: '#38bdf8',
-    marginBottom: '10px',
-  },
-  projectDesc: {
-    fontSize: '1rem',
-    color: '#cbd5e1',
-  },
-  link: {
-    color: '#38bdf8',
-  },
-  contactButton: {
-    display: 'inline-block',
-    backgroundColor: '#2563eb',
-    color: 'white',
-    padding: '12px 24px',
-    borderRadius: '6px',
-    marginTop: '15px',
-    fontWeight: '600',
-    textDecoration: 'none',
-    cursor: 'pointer',
-  },
-};
+    <section id="resume" class="section">
+      <div class="section-row">
+        <div class="section-col">
+          <h2 class="section-title reveal">Resume</h2>
+          <p class="section-text reveal">Download or view my latest resume for detailed experience, projects, and skills.</p>
+          <div class="cta reveal fade-up" style="margin-top:12px;">
+            <a class="btn btn-primary hover-bounce" href="#" target="_blank" rel="noopener">View Resume</a>
+            <a class="btn btn-outline hover-bounce" href="#" download>Download PDF</a>
+          </div>
+        </div>
+        <div class="section-col section-media reveal fade-up">
+          <img class="media media-float" src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200&auto=format&fit=crop" alt="Resume preview" loading="lazy" data-parallax-speed="0.08">
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <div class="section-row">
+        <div class="section-col">
+          <h2 class="section-title reveal">Experience</h2>
+          <div class="timeline">
+            <div class="timeline-item card reveal">
+              <div class="media-inline">
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop" alt="Team collaboration" loading="lazy">
+              </div>
+              <div class="item-title">Full Stack Development Internship — Gateway Solutions</div>
+              <ul class="bullets">
+                <li>Worked on real development tasks</li>
+                <li>Gained front-end + back-end exposure</li>
+              </ul>
+            </div>
+            <div class="timeline-item card reveal">
+              <div class="media-inline">
+                <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="Python learning" loading="lazy">
+              </div>
+              <div class="item-title">Backend Python Course — M3 Digital Media</div>
+              <ul class="bullets">
+                <li>Backend logic training</li>
+                <li>Python project practice</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="section-col section-media reveal fade-up">
+          <img class="media media-float" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop" alt="Office workspace" loading="lazy" data-parallax-speed="0.1">
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <div class="section-row">
+        <div class="section-col">
+          <h2 class="section-title reveal">Education</h2>
+          <ul class="stack reveal">
+            <li><strong>B.E CSE</strong> — SNS College of Technology — 8.3 CGPA (2025)</li>
+            <li><strong>HSC</strong> — Stanes A.I.H.S.S School (75%)</li>
+            <li><strong>SSLC</strong> — Stanes A.I.H.S.S School (65%)</li>
+          </ul>
+        </div>
+        <div class="section-col section-media reveal fade-up">
+          <img class="media media-round media-float" src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1200&auto=format&fit=crop" alt="Graduation hat" loading="lazy" data-parallax-speed="0.12">
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="section">
+      <div class="section-row">
+        <div class="section-col">
+          <h2 class="section-title reveal">Certifications</h2>
+          <ul class="grid certs-grid stagger">
+            <li class="card reveal">Introduction to C Nano Degree (2022)</li>
+            <li class="card reveal">Power BI (2022)</li>
+            <li class="card reveal">Cloud Computing Nano Degree (2023)</li>
+            <li class="card reveal">Cyber Security Nano Degree (2023)</li>
+            <li class="card reveal">Introduction to Cloud Computing — EDX (2022)</li>
+            <li class="card reveal">Introduction to Data Science — EDX (2022)</li>
+            <li class="card reveal">Fundamentals of Digital Marketing</li>
+            <li class="card reveal">Java Full Stack Development</li>
+          </ul>
+        </div>
+        <div class="section-col section-media reveal fade-up">
+          <img class="media media-float" src="https://images.unsplash.com/photo-1549921296-3b4a5931d8d2?q=80&w=1200&auto=format&fit=crop" alt="Certificates desk" loading="lazy" data-parallax-speed="0.1">
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="section-row">
+        <div class="section-col">
+          <h2 class="section-title reveal">Contact</h2>
+          <div class="stack reveal">
+            <p><strong>Email:</strong> <a class="link" href="mailto:varshanyuvaraj08@gmail.com">varshanyuvaraj08@gmail.com</a></p>
+            <p><strong>Location:</strong> Coonoor, The Nilgiris, Tamil Nadu, India</p>
+            <p><strong>LinkedIn:</strong> <a class="link" href="https://www.linkedin.com/in/varshanyuvaraj" target="_blank" rel="noopener noreferrer">linkedin.com/in/varshanyuvaraj</a></p>
+            <div style="margin-top:10px; display:flex; gap:10px;">
+              <a class="icon-btn hover-bounce" href="mailto:varshanyuvaraj08@gmail.com" aria-label="Email">✉️</a>
+              <a class="icon-btn hover-bounce" href="https://www.linkedin.com/in/varshanyuvaraj" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+            </div>
+          </div>
+        </div>
+        <div class="section-col section-media reveal fade-up">
+          <img class="media media-round media-float" src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1200&auto=format&fit=crop" alt="Map and phone" loading="lazy" data-parallax-speed="0.12">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2025 Varshan — Designed & Built with ❤️.
+  </footer>
+
+  <script src="script.js"></script>
+  <!-- Defer non-critical JS if needed -->
+</body>
+</html>
