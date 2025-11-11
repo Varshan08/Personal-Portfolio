@@ -336,8 +336,7 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-.fade-up { }
-.slide-up { }
+
 
 .stagger > * {
   transition-delay: calc(var(--i, 0) * 60ms);
@@ -414,7 +413,7 @@ body {
   .section-title::after {
     transition: none !important;
   }
-=======
+
 :root {
   --bg: #ffffff;
   --fg: #0f172a;
@@ -753,8 +752,6 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-.fade-up { }
-.slide-up { }
 
 .stagger > * {
   transition-delay: calc(var(--i, 0) * 60ms);
@@ -831,5 +828,5 @@ body {
   .section-title::after {
     transition: none !important;
   }
->>>>>>> 66672a3a81515fa6d849a9741e1b678ae34ddf21
+}
 }

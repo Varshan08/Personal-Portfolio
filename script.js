@@ -97,8 +97,6 @@
   }
 })();
 
-
-=======
 (function () {
   const navbar = document.getElementById('navbar');
   const menuToggle = document.getElementById('menuToggle');
@@ -197,6 +195,3 @@
     });
   }
 })();
-
-
->>>>>>> 66672a3a81515fa6d849a9741e1b678ae34ddf21
