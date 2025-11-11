@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 (function () {
   const navbar = document.getElementById('navbar');
   const menuToggle = document.getElementById('menuToggle');
